@@ -1,0 +1,76 @@
+# ==========================================
+# Environments & Variables (CRÍTICO)
+# ==========================================
+# Nunca envie credenciais, chaves de API ou URL do PostgreSQL para o Git!
+.env
+.env.*
+!.env.example
+*.local
+
+# ==========================================
+# FastAPI / Python (SQLModel)
+# ==========================================
+# Ambientes Virtuais
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-code e Caches do Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Caches de Testes e Tipagem
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.cover
+*.pyo
+
+# Migrações e Logs (Alembic)
+# Observação: Se usar Alembic para o SQLModel, mantenha a pasta alembic/versions/ no Git!
+*.log
+
+# ==========================================
+# React / Node.js
+# ==========================================
+# Dependências
+node_modules/
+jspm_packages/
+
+# Builds de Produção (Vite / CRA / Next.js)
+dist/
+build/
+.next/
+out/
+
+# Caches do Gerenciador de Pacotes
+.npm
+.eslintcache
+.stylelintcache
+.vite/
+.parcel-cache/
+*.tsbuildinfo
+
+# Logs de Erros
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==========================================
+# IDEs & Editores de Código
+# ==========================================
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
