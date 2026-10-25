@@ -2,9 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # Exemplo de import do seu controller de usuários
-from app.controllers import user_controller
+#from app.controllers import user_controller
 
-app = FastAPI(title="Meu Projeto Fullstack")
+app = FastAPI(title="Rconnect-mc")
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,9 +14,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Registra o router direto
-app.include_router(user_controller.router)
+#app.include_router(#placeholder_da_silva) #colocar o router do controller
 
 @app.get("/")
 def read_root():
-    return {"message": "API rodando sem v1!"}
+    return {"message": "API rodando"}
