@@ -1,10 +1,19 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlmodel import SQLModel
 
-# Exemplo de import do seu controller de usuários
-from app.controllers import user_controller
+from database import engine
+from models import db_models
 
-app = FastAPI(title="Meu Projeto Fullstack")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    SQLModel.metadata.create_all(engine)
+    yield
+
+
+app = FastAPI(title="Rconnect-mc", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,9 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Registra o router direto
-app.include_router(user_controller.router)
 
 @app.get("/")
 def read_root():
-    return {"message": "API rodando sem v1!"}
+    return {"message": "API rodando"}
