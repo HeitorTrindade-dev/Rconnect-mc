@@ -1,4 +1,4 @@
-from typing import Generic, Type, TypeVar, List, Optional
+from typing import Any, Generic, Type, TypeVar, List, Optional
 from sqlmodel import Session, select
 from sqlmodel.main import SQLModel
 
@@ -9,7 +9,7 @@ class BaseRepository(Generic[ModelType]):
         self.model = model
         self.session = session
 
-    def get_by_id(self, id: any) -> Optional[ModelType]:
+    def get_by_id(self, id: Any) -> Optional[ModelType]:
         return self.session.get(self.model, id)
 
     def get_all(self, skip: int = 0, limit: int = 100) -> List[ModelType]:
@@ -31,7 +31,7 @@ class BaseRepository(Generic[ModelType]):
         self.session.refresh(db_obj)
         return db_obj
 
-    def delete(self, id: any) -> Optional[ModelType]:
+    def delete(self, id: Any) -> Optional[ModelType]:
         db_obj = self.get_by_id(id)
         if db_obj:
             self.session.delete(db_obj)

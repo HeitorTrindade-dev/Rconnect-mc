@@ -14,6 +14,8 @@ class ProductsTypes(str,Enum):
     non_listed = "non_listed"
 
 class User(SQLModel, table=True):
+    __tablename__ = "users"  # "user" é palavra reservada no Postgres
+
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
 
     username: str
@@ -27,15 +29,15 @@ class User(SQLModel, table=True):
 
 class Server(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    id_owner: uuid.UUID = Field(foreign_key="user.id")
+    id_owner: uuid.UUID = Field(foreign_key="users.id")
 
     name: str
-    descrition: str
+    description: str
     url_icon: str
     server_ip: str
     server_port: int
     rcon_port: int
-    hashed_rcon_password: str
+    encrypted_rcon_password: str
 
     owner: User = Relationship(back_populates="servers")
     products: list["Product"] = Relationship(back_populates="server")
@@ -43,7 +45,7 @@ class Server(SQLModel, table=True):
 class Acquisition(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     id_product: uuid.UUID = Field(foreign_key="product.id")
-    id_user: uuid.UUID = Field(foreign_key="user.id")
+    id_user: uuid.UUID = Field(foreign_key="users.id")
 
     purchase_date: datetime = Field(default_factory=datetime.utcnow)
     expiration_date: datetime | None = Field(default=None)
@@ -57,7 +59,7 @@ class Product(SQLModel, table=True):
 
     type: ProductsTypes
     name: str
-    descrition: str
+    description: str
     url_icon: str
     price: Decimal = Field(default=0.00, max_digits=10, decimal_places=2)
     command: str
