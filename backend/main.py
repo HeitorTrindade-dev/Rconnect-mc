@@ -1,10 +1,19 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlmodel import SQLModel
 
-# Exemplo de import do seu controller de usuários
-#from app.controllers import user_controller
+from database import engine
+from models import db_models
 
-app = FastAPI(title="Rconnect-mc")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    SQLModel.metadata.create_all(engine)
+    yield
+
+
+app = FastAPI(title="Rconnect-mc", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,7 +23,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#app.include_router(#placeholder_da_silva) #colocar o router do controller
 
 @app.get("/")
 def read_root():

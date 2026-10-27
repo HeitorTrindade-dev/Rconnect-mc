@@ -13,7 +13,7 @@ class ProductsTypes(str,Enum):
     cosmetic = "cosmetic"
     non_listed = "non_listed"
 
-class User(SQLModel, table=true):
+class User(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
 
     username: str
@@ -25,7 +25,7 @@ class User(SQLModel, table=true):
     servers: list["Server"] = Relationship(back_populates="owner")
     acquisitions: list["Acquisition"] = Relationship(back_populates="user")
 
-class Server(SQLModel, table=true):
+class Server(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     id_owner: uuid.UUID = Field(foreign_key="user.id")
 
@@ -40,20 +40,20 @@ class Server(SQLModel, table=true):
     owner: User = Relationship(back_populates="servers")
     products: list["Product"] = Relationship(back_populates="server")
 
-class Acquisition(SQLModel, table=true):
+class Acquisition(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    id_product: uuid.UUID = Field(foreign_key="user.id")
+    id_product: uuid.UUID = Field(foreign_key="product.id")
     id_user: uuid.UUID = Field(foreign_key="user.id")
 
     purchase_date: datetime = Field(default_factory=datetime.utcnow)
     expiration_date: datetime | None = Field(default=None)
 
-    product: Product = Relationship(back_populates="acquisitions")
+    product: "Product" = Relationship(back_populates="acquisitions")
     user: User = Relationship(back_populates="acquisitions")
 
-class Product(SQLModel, table=true):
+class Product(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    id_server: uuid.UUID = Field(foreign_key="user.id")
+    id_server: uuid.UUID = Field(foreign_key="server.id")
 
     type: ProductsTypes
     name: str
