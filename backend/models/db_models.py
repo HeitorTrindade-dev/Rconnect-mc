@@ -15,7 +15,7 @@ class ProductsTypes(str,Enum):
 
 class User(SQLModel, table=true):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    
+
     username: str
     nick: str
     email: str
