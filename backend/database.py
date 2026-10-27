@@ -1,7 +1,24 @@
-from sqlmodel import create_engine
-import os
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from sqlmodel import create_engine, Session
 
-# URL de conexão com o PostgreSQL. O ideal é puxar isso de um arquivo .env depois!
-DATABASEURL = "postgresql://usuario:senha@localhost:5432/nome_do_banco"
+class Settings(BaseSettings):
+    DB_USER: str
+    DB_PASSWORD: str
+    DB_HOST: str
+    DB_PORT: str
+    DB_NAME: str
 
-engine = create_engine(DATABASEURL, echo=True);
+    @property
+    def DATABASE_URL(self) -> str:
+        return f"postgresql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+settings = Settings()
+
+engine = create_engine(settings.DATABASE_URL, echo=True)
+
+def get_session():
+    with Session(engine) as session:
+        yield session
