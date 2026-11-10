@@ -1,15 +1,11 @@
-# ==========================================
-# Environments & Variables (CRÍTICO)
-# ==========================================
-# Nunca envie credenciais, chaves de API ou URL do PostgreSQL para o Git!
+# variaveis de Ambiente
 .env
 .env.*
 !.env.example
 *.local
 
-# ==========================================
-# FastAPI / Python (SQLModel)
-# ==========================================
+## FastAPI / Python (SQLModel)
+
 # Ambientes Virtuais
 venv/
 .venv/
@@ -37,9 +33,9 @@ htmlcov/
 # Observação: Se usar Alembic para o SQLModel, mantenha a pasta alembic/versions/ no Git!
 *.log
 
-# ==========================================
-# React / Node.js
-# ==========================================
+
+## React / Node.js
+
 # Dependências
 node_modules/
 jspm_packages/
@@ -64,9 +60,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# ==========================================
-# IDEs & Editores de Código
-# ==========================================
+
+## IDEs & Editores de Código
 # VS Code
 .vscode/*
 !.vscode/settings.json
@@ -74,3 +69,6 @@ pnpm-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+#servidor minecraft
+minecraft-server
